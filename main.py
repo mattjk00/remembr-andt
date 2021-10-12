@@ -71,14 +71,17 @@ def collage(img1, img2, cpointx, cpointy):
             img3[i][j] = img2[i][j]
     return img3
 
+'''
+Right now just picks best two and creates children of the two spliced.
+'''
 def evolution_routine():
     best = pick_best_two()
 
     best_img = population[best[0]]
     best_img2 = population[best[1]]
 
-    child1 = collage(best_img, best_img2, width//3, height//3)
-    child2 = collage(best_img2, best_img, width//3, height//3)
+    child1 = collage(best_img, best_img2, 0, height//2)
+    child2 = collage(best_img2, best_img, 0, height//2)
 
     population.clear()
     population.extend([best_img, best_img2, child1, child2])
@@ -92,11 +95,6 @@ def evolution_routine():
             rx = np.random.randint(0, width)
             ry = np.random.randint(0, height)
             ccolor = childn[ry][rx]
-            #ccolor[0] += np.uint8(np.random.random() * (4)-2)
-            #ccolor[1] += np.uint8(np.random.random() * (4)-2)
-            #ccolor[2] += np.uint8(np.random.random() * (4)-2)
-            #childn[ry][rx] += np.uint8(np.random.random() * (500)-250)
-            #childn[ry][rx][3] = ccolor[3]
             childn[ry][rx] = color_as_array(palette[np.random.randint(0, len(palette))])
         
         population.append(childn)
